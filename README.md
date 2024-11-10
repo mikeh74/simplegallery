@@ -6,3 +6,5 @@ contain url references to images which can then be displayed as a gallery.
 ## Example Usage
 
 See the demo folder for a working example
+
+[Working demo](https://mikeh74.github.io/simplegallery/)
