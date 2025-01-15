@@ -21,19 +21,18 @@ const renderImage = (
    */
   if (youtubeId !== null) {
     y = `data-youtubeid="${youtubeId}"`;
-    x = `<div class="gallery-play-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 512 512">
-      <path d="M371.7 238l-176-107c-15.8-8.8-35.7 2.5-35.7 21v208c0 18.4 19.8 
-      29.8 35.7 21l176-101c16.4-9.1 16.4-32.8 0-42zM504 256C504 119 393 8 256 
-      8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 
-      200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256z"/></svg>
-      </div>`;
+    x = `<div class="simple-gallery-play-icon">
+          <svg width="110" height="110" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+              <path class="simple-gallery-play-icon-circle" d="M 105 55 C 105 27.385765 82.614235 5 55 5 C 27.385763 5 5 27.385765 5 55 C 5 82.614235 27.385763 105 55 105 C 82.614235 105 105 82.614235 105 55 Z"/>
+              <path class="simple-gallery-play-icon-triangle" d="M 81.5 55.122868 L 41.5 32.028854 L 41.5 78.216881 Z"/>
+          </svg>
+        </div>`;
   }
 
   return `
-    <li class="gallery-item" data-imagekey="${imageIndex}" ${y}>
+    <li class="simple-gallery-item" data-imagekey="${imageIndex}" ${y}>
       <figure>
-        <div class="gallery-image-wrapper">
+        <div class="simple-gallery-image-wrapper">
         <img src="${imageUrl}" alt="${imageAlt}">
         ${x}
         </div>
@@ -72,35 +71,22 @@ const renderOverlay = (galleriesRendered, showYoutube = false) => {
 
   /* eslint-disable */
   return `
-  <div id="simple-gallery-container" 
-    class="simple-gallery-container">
+  <div id="simple-gallery" 
+    class="simple-gallery">
     ${galleriesRendered}
-    <a href="#" class="gallery-button gallery-button-previous">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 320 512">
-        <path d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 
-        22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 
-        9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 
-        272.97c-9.37-9.37-9.37-24.57 0-33.94z"/>
+    <a href="#" class="simple-gallery-button simple-gallery-button-previous">
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path id="Path" class="simple-gallery-icon-stroke" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" d="M 66 8 L 24 50 L 66 92 L 66 92"/>
       </svg>
     </a>
-    <a href="#" class="gallery-button gallery-button-next">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 320 512">
-        <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 
-        0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 
-        101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 
-        24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/>
+    <a href="#" class="simple-gallery-button simple-gallery-button-next">
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path id="Path" class="simple-gallery-icon-stroke" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" d="M 34 8 L 76 50 L 34 92 L 34 92"/>
       </svg>
     </a>
-    <a href="#" class="gallery-button-close">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 352 512">
-        <path d="M242.72 256l100.07-100.07c12.28-12.28 
-        12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 
-        0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 
-        111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 
-        12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 
-        0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 
-        44.48 0l22.24-22.24c12.28-12.28 
-        12.28-32.19 0-44.48L242.72 256z"/>
+    <a href="#" class="simple-gallery-button-close">
+      <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path id="Path" class="simple-gallery-icon-stroke" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" d="M 20 20 L 50 50 L 20 80 L 20 80 M 80 20 L 50 50 L 80 80 L 80 80"/>
       </svg>
     </a>
     <div class="player-wrapper">
@@ -158,32 +144,57 @@ const initGalleries = (selector) => {
  */
 function processImage(image, index) {
 
-  let imgSrc;
-  let caption;
-
   image.setAttribute('data-imagekey', index);
-  let youtubeId = image.getAttribute('data-youtubeid');
+  let youtubeId = image.getAttribute('data-sg-youtubeid');
 
-  if (image.getAttribute('data-src-lg')) {
-    imgSrc = image.getAttribute('data-src-lg');
-  } else {
-    imgSrc = image.src;
-  }
-
-  if (image.getAttribute('data-description')) {
-    caption = image.getAttribute('data-description');
-  } else {
-    caption = image.alt;
-  }
+  const imgSrc = getImageSource(image);
+  const caption = getImageCaption(image);
 
   return renderImage(index, imgSrc, image.alt, caption, youtubeId);
+}
+
+
+/**
+ * Retrieves the caption for a given image element.
+ *
+ * This function checks if the image element has a 'data-sg-desc' attribute.
+ * If it does, it returns the value of that attribute. Otherwise, it returns
+ * the value of the image's 'alt' attribute.
+ *
+ * @param {HTMLImageElement} image - The image element from which to retrieve the caption.
+ * @param {string} caption - A fallback caption if no 'data-sg-desc' attribute is found.
+ * @returns {string} The caption for the image.
+ */
+function getImageCaption(image, caption) {
+  if (image.getAttribute('data-sg-desc')) {
+    return image.getAttribute('data-sg-desc');
+  }
+  return image.alt;
+}
+
+/**
+ * Retrieves the source for a given image element.
+ * 
+ * This function checks if the image element has a 'data-sg-src' attribute.
+ * If it does, it returns the value of that attribute. Otherwise, it returns
+ * the value of the image's 'src' attribute.
+ * 
+ * @param {HTMLImageElement} image - The image element from which to retrieve the source.
+ * @returns {string} The source for the image.
+ *
+ */
+function getImageSource(image) {
+  if (image.getAttribute('data-sg-src')) {
+    return image.getAttribute('data-sg-src');
+  }
+  return image.src;
 }
 
 /**
  * Setup event listeners
  */
 function setup(selector) {
-  const overlay = document.getElementById('simple-gallery-container');
+  const overlay = document.getElementById('simple-gallery');
 
   const images = document.querySelectorAll(`${selector} img`);
   let currentImage = 0;
@@ -197,6 +208,7 @@ function setup(selector) {
 
   images.forEach(function (image) {
     image.addEventListener('click', (e) => {
+      e.preventDefault();
       resetImages();
 
       const el = image.closest(selector);
@@ -250,7 +262,7 @@ function setup(selector) {
     }
   });
 
-  document.querySelector('.gallery-button-close')
+  document.querySelector('.simple-gallery-button-close')
     .addEventListener('click', (event) => {
       event.preventDefault();
       closeModal();
@@ -281,11 +293,9 @@ function setup(selector) {
    * Close the gallery modal
    */
   function closeModal() {
-
-    console.log('closeModal');
-
     resetImages();
     overlay.classList.remove('gallery-active');
+    document.body.style.overflow = 'auto';
 
     let currentGallerySelector = `[data-gallery-id='${currentGallery}']`;
     overlay.querySelectorAll(currentGallerySelector)[0].classList.remove('gallery-list--active');
@@ -326,7 +336,7 @@ function setup(selector) {
 
     if (typeof player !== 'undefined') {
       const playerElement = document.querySelector(
-        '#simple-gallery-container #ytplayer');
+        '#simple-gallery #ytplayer');
 
       playerElement.parentNode.classList.remove('ytplayer-active');
       playerElement.parentNode.parentNode.classList.remove('ytactive');
@@ -339,7 +349,7 @@ function setup(selector) {
   /**
    * Event listener for gallery previous button
    */
-  overlay.querySelector('.gallery-button-previous')
+  overlay.querySelector('.simple-gallery-button-previous')
     .addEventListener('click', (event) => {
       event.preventDefault();
       imagePrevious();
@@ -348,7 +358,7 @@ function setup(selector) {
   /**
    * Event listener for gallery next button
    */
-  overlay.querySelector('.gallery-button-next')
+  overlay.querySelector('.simple-gallery-button-next')
     .addEventListener('click', (event) => {
       event.preventDefault();
       imageNext();
@@ -364,8 +374,8 @@ function setup(selector) {
 
     resetImages();
 
-    const x = overlay.querySelector('.gallery-list[data-gallery-id="' +
-      currentGallery + '"] [data-imagekey="' + i + '"]',
+    const x = overlay.querySelector(
+      `.gallery-list[data-gallery-id="${currentGallery}"] [data-imagekey="${i}"]`
     );
 
     x.classList.add('image-active');
@@ -377,6 +387,7 @@ function setup(selector) {
     }
 
     overlay.classList.add('gallery-active');
+    document.body.style.overflow = 'hidden';
 
     let currentGallerySelector = `[data-gallery-id='${currentGallery}']`;
     overlay.querySelectorAll(currentGallerySelector)[0]
@@ -430,7 +441,7 @@ window.onPlayerReady = (event) => {
  */
 function addClickListeners() {
   const els = document.querySelectorAll(
-    '#simple-gallery-container [data-youtubeid]');
+    '#simple-gallery [data-youtubeid]');
   els.forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
@@ -452,7 +463,7 @@ function addClickListeners() {
         });
 
         const playerElement = document.querySelector(
-          '#simple-gallery-container #ytplayer');
+          '#simple-gallery #ytplayer');
 
         playerElement.parentNode.classList.add('ytplayer-active');
         playerElement.parentNode.parentNode.classList.add('ytactive');
@@ -465,7 +476,10 @@ function addClickListeners() {
   });
 }
 
-const objectFitPolyfill = function () {
+/**
+ * Polyfill for object-fit
+ */
+const objectFitPolyfill = () => {
   if ('objectFit' in document.documentElement.style === false) {
     const images = document.querySelectorAll('.gallery img');
     images.forEach(function (image) {
@@ -481,9 +495,11 @@ const objectFitPolyfill = function () {
 }
 
 /**
- * Runs the functions to setup the gallery
+ * Setup the gallery using the passed selector
+ * 
+ * @param {string} selector 
  */
-const initSimpleGallery = (selector = '.gallery') => {
+const simpleGallery = ({selector = '.gallery'}={}) => {
   const test = document.querySelectorAll(selector);
   if (test.length > 0) {
     initGalleries(selector);
@@ -493,4 +509,4 @@ const initSimpleGallery = (selector = '.gallery') => {
   };
 };
 
-export default initSimpleGallery;
+export default simpleGallery;

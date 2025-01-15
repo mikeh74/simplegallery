@@ -1,10 +1,96 @@
 # Simple Gallery
 
-Super lightweight lightbox style gallery that takes a series of elements which
-contain url references to images which can then be displayed as a gallery.
+A lightweight gallery that displays a series of image elements in a lightbox-style modal.
 
 ## Example Usage
 
-See the demo folder for a working example
+See the demo folder for a working example:
 
 [Working demo](https://mikeh74.github.io/simplegallery/demo/)
+
+## Basic Usage
+
+Wrap the images in a container with a class that can be passed to the script. By default, this class is `gallery`, but it can be changed when initializing the script.
+
+Here is a simple setup:
+
+```html
+<div class="gallery">
+  <div class="gallery-item">
+    <img src="./images/img1.jpg" data-description="This is my description" alt="Malaga at Christmas">
+  </div>
+  <div class="gallery-item">
+    <img src="./images/img2.jpg" data-gallery-src="./images/img5.jpg" alt="Seagull">
+  </div>
+  <div class="gallery-item">
+    <img src="./images/img3.jpg" alt="Southport at Sunset">
+  </div>
+</div>
+
+<script type="module">
+  import('../index.js').then((module) => {
+    const gallery = module.default;
+    gallery();
+  });
+</script>
+```
+
+## Parameters
+
+The `gallery()` function takes a single optional parameter, which is a CSS 
+selector to identify the parent elements wrapping the set of images for the
+simple gallery.
+
+The default parameter is `.gallery`, which looks for items with a class of 
+`gallery`. However, it can be any valid CSS selector:
+
+```javascript
+import('../index.js').then((module) => {
+  const gallery = module.default;
+  gallery({selector:'.custom-gallery-class'});
+});
+```
+
+*N.B.* It is not intended for the simple gallery to be instantiated
+multiple times, it should only be instantiated once.
+
+# Data variables
+The following data attributes can be used on the image elements to provide
+additional functionality:
+
+- `data-sg-desc`: Adds a description to the image that will be displayed in
+the modal.
+- `data-sg-src`: Specifies a different source image to be displayed in
+the modal, useful for providing higher resolution images.
+
+Example:
+
+```html
+<img src="./images/img1.jpg" data-description="This is my description" alt="Malaga at Christmas">
+<img src="./images/img2.jpg" data-gallery-src="./images/img5.jpg" alt="Seagull">
+```
+
+# CSS Variables and styling
+
+You will need to include the `style.css` file in your project. The easiest way 
+is to copy the CSS file to your project.
+
+If you are using a bundler, you might have an alternate workflow (see the 
+webpack/rollup/parcel documentation for more on managing CSS files via
+those options).
+
+The following CSS variables are available:
+ * --sg-modal-bg: Background color for the modal.
+ * --sg-text-color: Text color used within the modal.
+ * --sg-btn-bg: Background color for buttons within the modal.
+ * --sg-modal-zindex: Z-index value for the modal to ensure it appears above other elements.
+ * --sg-font-family: Font family used for text within the modal.
+
+Add them to the :root element in your CSS to override these properties to
+provide some basic theming to make the styling more in keeping with your
+site.
+
+If you want styling that is more bespoke then it is recommended that you
+copy the style.css file from the dist folder and add it directly to your
+project and update as necessary (the SCSS version can be found in the src
+folder if you prefer).
