@@ -1,3 +1,5 @@
+$icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -75,7 +77,7 @@
     @include flex-center;
 
     &:hover .simple-gallery-play-icon-circle {
-      transition: all 0.33s ease-in-out;
+      transition: $icon-transition;
       fill: red;
     }
   }
@@ -113,7 +115,7 @@
     @include flex-center;
 
     &-circle {
-      transition: all 0.33s ease-in-out;
+      transition: $icon-transition;
       fill: #494949;
       fill-rule: evenodd;
       stroke: none;
@@ -123,9 +125,9 @@
       fill: #fff;
       fill-rule: evenodd;
       stroke: #fff;
-      stroke-width: 14;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke-width: 8;
+      // stroke-linecap: round;
+      // stroke-linejoin: round;
     }
 
     svg {

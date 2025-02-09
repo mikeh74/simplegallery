@@ -67,7 +67,7 @@
   align-items: center;
 }
 .simple-gallery-image-wrapper:hover .simple-gallery-play-icon-circle {
-  transition: all 0.33s ease-in-out;
+  transition: all 0.25s cubic-bezier(0.46, 0.03, 0.52, 0.96);
   fill: red;
 }
 .simple-gallery figcaption {
@@ -99,7 +99,7 @@
   align-items: center;
 }
 .simple-gallery-play-icon-circle {
-  transition: all 0.33s ease-in-out;
+  transition: all 0.25s cubic-bezier(0.46, 0.03, 0.52, 0.96);
   fill: #494949;
   fill-rule: evenodd;
   stroke: none;
@@ -108,9 +108,7 @@
   fill: #fff;
   fill-rule: evenodd;
   stroke: #fff;
-  stroke-width: 14;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke-width: 8;
 }
 .simple-gallery-play-icon svg {
   height: 4rem;

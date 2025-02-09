@@ -67,9 +67,8 @@ const renderGallery = (images, galleryId) => {
  * @param {boolean} showYoutube
  * @return {string}
  */
-const renderOverlay = (galleriesRendered, showYoutube = false) => {
+const renderOverlay = (galleriesRendered) => {
 
-  /* eslint-disable */
   return `
   <div id="simple-gallery" 
     class="simple-gallery">
@@ -95,7 +94,7 @@ const renderOverlay = (galleriesRendered, showYoutube = false) => {
       </div>
     </div>
   </div>`;
-  /* eslint-enable */
+   
 };
 
 /**
@@ -165,7 +164,7 @@ function processImage(image, index) {
  * @param {string} caption - A fallback caption if no 'data-sg-desc' attribute is found.
  * @returns {string} The caption for the image.
  */
-function getImageCaption(image, caption) {
+function getImageCaption(image) {
   if (image.getAttribute('data-sg-desc')) {
     return image.getAttribute('data-sg-desc');
   }
@@ -327,6 +326,7 @@ function setup(selector) {
    *
    */
   function resetImages() {
+    let player = window['player'];
     const images = overlay.querySelectorAll('.gallery-list li');
     images.forEach(function (i) {
       i.classList.remove('image-active');
@@ -440,6 +440,8 @@ window.onPlayerReady = (event) => {
  * Add event listeners for images which has youtube id
  */
 function addClickListeners() {
+  const YT = window['YT'];
+  const onPlayerReady = window['onPlayerReady'];
   const els = document.querySelectorAll(
     '#simple-gallery [data-youtubeid]');
   els.forEach(function (el) {
@@ -459,6 +461,7 @@ function addClickListeners() {
           },
           playerVars: {
             'rel': 0,
+            'autoplay': 1,
           },
         });
 
@@ -499,7 +502,7 @@ const objectFitPolyfill = () => {
  * 
  * @param {string} selector 
  */
-const simpleGallery = ({selector = '.gallery'}={}) => {
+const simpleGallery = ({selector = '.gallery'} = {}) => {
   const test = document.querySelectorAll(selector);
   if (test.length > 0) {
     initGalleries(selector);
