@@ -1,4 +1,3 @@
-
 /**
  * Renders an image using a template
  *
@@ -68,7 +67,6 @@ const renderGallery = (images, galleryId) => {
  * @return {string}
  */
 const renderOverlay = (galleriesRendered) => {
-
   return `
   <div id="simple-gallery" 
     class="simple-gallery">
@@ -94,7 +92,6 @@ const renderOverlay = (galleriesRendered) => {
       </div>
     </div>
   </div>`;
-   
 };
 
 /**
@@ -142,7 +139,6 @@ const initGalleries = (selector) => {
  * @returns {string} - Returns an HTML string.
  */
 function processImage(image, index) {
-
   image.setAttribute('data-imagekey', index);
   let youtubeId = image.getAttribute('data-sg-youtubeid');
 
@@ -151,7 +147,6 @@ function processImage(image, index) {
 
   return renderImage(index, imgSrc, image.alt, caption, youtubeId);
 }
-
 
 /**
  * Retrieves the caption for a given image element.
@@ -173,11 +168,11 @@ function getImageCaption(image) {
 
 /**
  * Retrieves the source for a given image element.
- * 
+ *
  * This function checks if the image element has a 'data-sg-src' attribute.
  * If it does, it returns the value of that attribute. Otherwise, it returns
  * the value of the image's 'src' attribute.
- * 
+ *
  * @param {HTMLImageElement} image - The image element from which to retrieve the source.
  * @returns {string} The source for the image.
  *
@@ -213,8 +208,8 @@ function setup(selector) {
       const el = image.closest(selector);
 
       currentGallery = el.id;
-      const g = document.querySelectorAll('[data-gallery-id="' +
-        currentGallery + '"] img');
+      const g = document.querySelectorAll('[data-gallery-id="'
+        + currentGallery + '"] img');
 
       totalImages = g.length;
 
@@ -235,7 +230,8 @@ function setup(selector) {
 
       if (touchendX > touchstartX + 50) {
         imagePrevious();
-      } else if (touchendX < touchstartX - 50) {
+      }
+      else if (touchendX < touchstartX - 50) {
         imageNext();
       }
     });
@@ -249,7 +245,8 @@ function setup(selector) {
 
       if (touchendX > touchstartX + 50) {
         imagePrevious();
-      } else if (touchendX < touchstartX - 50) {
+      }
+      else if (touchendX < touchstartX - 50) {
         imageNext();
       }
     });
@@ -375,14 +372,15 @@ function setup(selector) {
     resetImages();
 
     const x = overlay.querySelector(
-      `.gallery-list[data-gallery-id="${currentGallery}"] [data-imagekey="${i}"]`
+      `.gallery-list[data-gallery-id="${currentGallery}"] [data-imagekey="${i}"]`,
     );
 
     x.classList.add('image-active');
 
     if (d === 'right') {
       x.classList.add('slide-in-from-right');
-    } else {
+    }
+    else {
       x.classList.add('slide-in-from-left');
     }
 
@@ -393,7 +391,6 @@ function setup(selector) {
     overlay.querySelectorAll(currentGallerySelector)[0]
       .classList.add('gallery-list--active');
   }
-
 
   /**
    * Check if the index would be out of range and return either the first or
@@ -406,9 +403,11 @@ function setup(selector) {
   function checkIndex(i) {
     if (i < 0) {
       return totalImages - 1;
-    } else if (i > totalImages - 1) {
+    }
+    else if (i > totalImages - 1) {
       return 0;
-    } else {
+    }
+    else {
       return i;
     }
   }
@@ -457,11 +456,11 @@ function addClickListeners() {
           width: '640',
           videoId: ytId,
           events: {
-            'onReady': onPlayerReady,
+            onReady: onPlayerReady,
           },
           playerVars: {
-            'rel': 0,
-            'autoplay': 1,
+            rel: 0,
+            autoplay: 1,
           },
         });
 
@@ -495,14 +494,14 @@ const objectFitPolyfill = () => {
       parent.style.backgroundSize = 'cover';
     });
   }
-}
+};
 
 /**
  * Setup the gallery using the passed selector
- * 
- * @param {string} selector 
+ *
+ * @param {string} selector
  */
-const simpleGallery = ({selector = '.gallery'} = {}) => {
+const simpleGallery = ({ selector = '.gallery' } = {}) => {
   const test = document.querySelectorAll(selector);
   if (test.length > 0) {
     initGalleries(selector);
