@@ -4,11 +4,19 @@
   "description": "Simple Modal Gallery",
   "main": "index.js",
   "scripts": {
-    "build": "npm run sass-compile && npm run lint-js",
-    "sass-compile": "sass ./src/style.scss ./dist/style.css",
-    "sass-watch": "sass -w ./src/style.scss ./dist/style.css",
+    "build": "parcel build --target default",
+    "watch": "parcel watch --target default",
     "lint-js": "eslint --fix ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "targets": {
+    "default": {
+      "source": [
+        "./src/gallery.scss",
+        "./src/gallery.js"
+      ],
+      "distDir": "dist"
+    }
   },
   "repository": {
     "type": "git",
@@ -22,9 +30,11 @@
   "homepage": "https://github.com/mikeh74/simplegallery#readme",
   "devDependencies": {
     "@eslint/js": "^9.20.0",
+    "@parcel/transformer-sass": "^2.13.3",
     "@stylistic/eslint-plugin": "^3.1.0",
     "eslint": "^9.20.0",
     "globals": "^15.14.0",
+    "parcel": "^2.13.3",
     "sass": "^1.83.4"
   }
 }

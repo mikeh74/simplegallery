@@ -1,6 +1,46 @@
 # Simple Gallery
 
-A lightweight gallery that displays a series of image elements in a lightbox-style modal.
+A lightweight gallery that displays a series of image elements in a
+lightbox-style modal.
+
+## Installation
+
+The simplest way of using this library is to copy the dist folder to your
+project and then reference the `gallery.css` and `gallery.js` files in your
+html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Gallery Example</title>
+
+  <link rel="stylesheet" href="/path/to/dist/gallery.css">
+
+</head>
+
+<body>
+
+  <div id="gal1" class="gallery">
+    <img src="./images/img1.jpg" alt="Malaga at Christmas">
+    <img src="./images/img2.jpg" alt="Seagull">
+    <img src="./images/img3.jpg" alt="Lorem ipsum">
+    <img src="./images/img4.jpg" alt="At the carwash">
+    <img src="./images/img5.jpg" alt="Shell Sculpture">
+  </div>
+
+  <script src="/path/to/dist/gallery.js"></script>
+</body>
+</html>
+
+```
+
+It doesn't provide styling for your images in the page but add `.gallery`
+around a series of images and each image will get a click event handler that
+will launch the gallery modal.
 
 ## Example Usage
 
@@ -10,7 +50,9 @@ See the demo folder for a working example:
 
 ## Basic Usage
 
-Wrap the images in a container with a class that can be passed to the script. By default, this class is `gallery`, but it can be changed when initializing the script.
+Wrap the images in a container with a class that can be passed to the script.
+By default, this class is `gallery`, but it can be changed when initializing
+the script.
 
 Here is a simple setup:
 
@@ -27,32 +69,9 @@ Here is a simple setup:
   </div>
 </div>
 
-<script type="module">
-  import('../index.js').then((module) => {
-    const gallery = module.default;
-    gallery();
-  });
-</script>
+<script src="./dist/gallery.js"></script>
+
 ```
-
-## Parameters
-
-The `gallery()` function takes a single optional parameter, which is a CSS 
-selector to identify the parent elements wrapping the set of images for the
-simple gallery.
-
-The default parameter is `.gallery`, which looks for items with a class of 
-`gallery`. However, it can be any valid CSS selector:
-
-```javascript
-import('../index.js').then((module) => {
-  const gallery = module.default;
-  gallery({selector:'.custom-gallery-class'});
-});
-```
-
-*N.B.* It is not intended for the simple gallery to be instantiated
-multiple times, it should only be instantiated once.
 
 # Data variables
 The following data attributes can be used on the image elements to provide

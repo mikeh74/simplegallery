@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Gallery Examples</title>
 
-  <link rel="stylesheet" href="../dist/style.css">
+  <link rel="stylesheet" href="../dist/gallery.css">
 
   <style>
 
@@ -94,13 +94,6 @@
     </div>
   </div>
 
-  <script type="module">
-    // dymanic import with promise
-    import('../index.js').then((module) => {
-      const gallery = module.default;
-      gallery();
-    });
-  </script>
+  <script src="../dist/gallery.js"></script>
 </body>
-
 </html>
