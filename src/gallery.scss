@@ -1,4 +1,9 @@
 $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
+$sg-modal-bg: #292929;
+$sg-text-color: #fff;
+$sg-btn-bg: #3d4e4e;
+$sg-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+$sg-modal-zindex: 10000;
 
 @mixin flex-center {
   display: flex;
@@ -7,8 +12,8 @@ $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
 }
 
 .simple-gallery {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-family: var(--sg-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif);
+  font-family: $sg-font-family;
+  font-family: var(--sg-font-family, $sg-font-family);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.33s ease-in-out;
@@ -23,10 +28,10 @@ $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
     bottom: 0;
     right: 0;
     height: auto;
-    background-color: #292929;
-    background-color: var(--sg-modal-bg, #292929);
-    z-index: 10000;
-    z-index: var(--sg-modal-zindex, 10000);
+    background-color: $sg-modal-bg;
+    background-color: var(--sg-modal-bg, $sg-modal-bg);
+    z-index: $sg-modal-zindex;
+    z-index: var(--sg-modal-zindex, $sg-modal-zindex);
     // overflow-y: hidden;
     @include flex-center;
     opacity: 1;
@@ -85,8 +90,8 @@ $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
   figcaption {
     margin-top: 0.5rem;
     text-align: center;
-    color: #fff;
-    color: var(--sg-text-color, #fff);
+    color: $sg-text-color;
+    color: var(--sg-text-color, $sg-text-color);
   }
 
   figure {
@@ -96,14 +101,14 @@ $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
   // *** Icons ***
 
   &-icon {
-    fill: #fff;
-    fill: var(--sg-text-color, #fff);
+    fill: $sg-text-color;
+    fill: var(--sg-text-color, $sg-text-color);
   }
 
   &-icon-stroke {
     fill: none;
-    stroke: #fff;
-    stroke: var(--sg-text-color, #fff);
+    stroke: $sg-text-color;
+    stroke: var(--sg-text-color, $sg-text-color);
   }
 
   &-play-icon {
@@ -126,8 +131,6 @@ $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
       fill-rule: evenodd;
       stroke: #fff;
       stroke-width: 8;
-      // stroke-linecap: round;
-      // stroke-linejoin: round;
     }
 
     svg {
@@ -142,8 +145,8 @@ $icon-transition: all 0.25s cubic-bezier(.46,.03,.52,.96);
     display: none;
     position: fixed;
     border-radius: 50%;
-    background-color: #3d4e4e;
-    background-color: var(--sg-btn-bg, #3d4e4e);
+    background-color: $sg-btn-bg;
+    background-color: var(--sg-btn-bg, $sg-btn-bg);
     justify-content: center;
     align-items: center;
 

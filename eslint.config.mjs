@@ -15,7 +15,7 @@ export default [
     languageOptions: { globals: globals.browser },
     plugins: { '@stylistic/js': stylistic },
     rules: {
-      // '@stylistic/js/semi': ['error', 'always'],
+      '@stylistic/js/semi': ['error', 'always'],
       '@stylistic/js/linebreak-style': ['error', 'unix'],
     },
   },

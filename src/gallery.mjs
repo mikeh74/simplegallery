@@ -197,9 +197,6 @@ function setup(selector) {
   const modalImages = overlay.querySelectorAll('.gallery-list img');
   let totalImages = 0;
 
-  let touchstartX = 0;
-  let touchendX = 0;
-
   images.forEach(function (image) {
     image.addEventListener('click', (e) => {
       e.preventDefault();
@@ -220,36 +217,7 @@ function setup(selector) {
   });
 
   modalImages.forEach((image) => {
-    image.addEventListener('mousedown', (event) => {
-      event.preventDefault();
-      touchstartX = event['screenX'];
-    });
-
-    image.addEventListener('mouseup', (event) => {
-      touchendX = event['screenX'];
-
-      if (touchendX > touchstartX + 50) {
-        imagePrevious();
-      }
-      else if (touchendX < touchstartX - 50) {
-        imageNext();
-      }
-    });
-
-    image.addEventListener('touchstart', (event) => {
-      touchstartX = event.changedTouches[0]['screenX'];
-    });
-
-    image.addEventListener('touchend', (event) => {
-      touchendX = event.changedTouches[0]['screenX'];
-
-      if (touchendX > touchstartX + 50) {
-        imagePrevious();
-      }
-      else if (touchendX < touchstartX - 50) {
-        imageNext();
-      }
-    });
+    setupImageSwipeHandlers(image, imagePrevious, imageNext);
   });
 
   overlay.addEventListener('click', (event) => {
@@ -327,9 +295,10 @@ function setup(selector) {
     let player = window['player'];
     const images = overlay.querySelectorAll('.gallery-list li');
     images.forEach(function (i) {
-      i.classList.remove('image-active');
-      i.classList.remove('slide-in-from-right');
-      i.classList.remove('slide-in-from-left');
+      i.classList.remove(
+        'image-active',
+        'slide-in-from-right',
+        'slide-in-from-left');
     });
 
     if (typeof player !== 'undefined') {
@@ -414,6 +383,47 @@ function setup(selector) {
   }
 };
 
+function setupImageSwipeHandlers(
+  image,
+  imagePrevious,
+  imageNext,
+) {
+  let touchstartX = 0;
+  let touchendX = 0;
+
+  image.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+    touchstartX = event['screenX'];
+  });
+
+  image.addEventListener('mouseup', (event) => {
+    touchendX = event['screenX'];
+
+    if (touchendX > touchstartX + 50) {
+      imagePrevious();
+    }
+    else if (touchendX < touchstartX - 50) {
+      imageNext();
+    }
+  });
+
+  image.addEventListener('touchstart', (event) => {
+    touchstartX = event.changedTouches[0]['screenX'];
+  });
+
+  image.addEventListener('touchend', (event) => {
+    touchendX = event.changedTouches[0]['screenX'];
+
+    if (touchendX > touchstartX + 50) {
+      imagePrevious();
+    }
+    else if (touchendX < touchstartX - 50) {
+      imageNext();
+    }
+  });
+  return { touchstartX, touchendX };
+}
+
 /**
  * Youtube player setup
  */
@@ -430,18 +440,13 @@ window.onYouTubeIframeAPIReady = () => {
 };
 
 /**
- * @param {event} event
- */
-window.onPlayerReady = (event) => {
-  event.target.playVideo();
-};
-
-/**
  * Add event listeners for images which has youtube id
  */
 function addClickListeners() {
   const YT = window['YT'];
-  const onPlayerReady = window['onPlayerReady'];
+  const onPlayerReady = (event) => {
+    event.target.playVideo();
+  };
   const els = document.querySelectorAll(
     '#simple-gallery [data-youtubeid]');
   els.forEach(function (el) {
@@ -471,31 +476,14 @@ function addClickListeners() {
         playerElement.parentNode.classList.add('ytplayer-active');
         playerElement.parentNode.parentNode.classList.add('ytactive');
 
-        e.currentTarget.classList.remove('image-active');
-        e.currentTarget.classList.remove('slide-in-from-left');
-        e.currentTarget.classList.remove('slide-in-from-right');
+        e.currentTarget.classList.remove(
+          'image-active',
+          'slide-in-from-right',
+          'slide-in-from-left');
       }
     });
   });
 }
-
-/**
- * Polyfill for object-fit
- */
-const objectFitPolyfill = () => {
-  if ('objectFit' in document.documentElement.style === false) {
-    const images = document.querySelectorAll('.gallery img');
-    images.forEach(function (image) {
-      const imgSrc = image.src;
-      const parent = image.parentNode;
-
-      image.style.opacity = 0;
-      parent.style.backgroundImage = `url("${imgSrc}")`;
-      parent.style.backgroundPosition = 'center center';
-      parent.style.backgroundSize = 'cover';
-    });
-  }
-};
 
 /**
  * Setup the gallery using the passed selector
@@ -508,7 +496,6 @@ const simpleGallery = ({ selector = '.gallery' } = {}) => {
     initGalleries(selector);
     setup(selector);
     youtubeSetup();
-    objectFitPolyfill();
   };
 };
 
