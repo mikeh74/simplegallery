@@ -59,10 +59,10 @@ Here is a simple setup:
 ```html
 <div class="gallery">
   <div class="gallery-item">
-    <img src="./images/img1.jpg" data-description="This is my description" alt="Malaga at Christmas">
+    <img src="./images/img1.jpg" data-sg-desc="This is my description" alt="Malaga at Christmas">
   </div>
   <div class="gallery-item">
-    <img src="./images/img2.jpg" data-gallery-src="./images/img5.jpg" alt="Seagull">
+    <img src="./images/img2.jpg" data-sg-src="./images/img5.jpg" alt="Seagull">
   </div>
   <div class="gallery-item">
     <img src="./images/img3.jpg" alt="Southport at Sunset">
@@ -73,23 +73,23 @@ Here is a simple setup:
 
 ```
 
-# Data variables
+## Data variables
 The following data attributes can be used on the image elements to provide
 additional functionality:
 
-- `data-sg-desc`: Adds a description to the image that will be displayed in
-the modal.
-- `data-sg-src`: Specifies a different source image to be displayed in
-the modal, useful for providing higher resolution images.
+| Data Attribute     | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| `data-sg-desc`     | Adds a description to the image, displayed in the modal.                    |
+| `data-sg-src`      | Specifies an alternate image source for the modal (e.g., higher resolution).|
 
 Example:
 
 ```html
-<img src="./images/img1.jpg" data-description="This is my description" alt="Malaga at Christmas">
-<img src="./images/img2.jpg" data-gallery-src="./images/img5.jpg" alt="Seagull">
+<img src="./images/img1.jpg" data-sg-desc="This is my description" alt="Malaga at Christmas">
+<img src="./images/img2.jpg" data-sg-src="./images/img5.jpg" alt="Seagull">
 ```
 
-# CSS Variables and styling
+## CSS Variables and styling
 
 You will need to include the `style.css` file in your project. The easiest way 
 is to copy the CSS file to your project.
@@ -112,4 +112,4 @@ site.
 If you want styling that is more bespoke then it is recommended that you
 copy the style.css file from the dist folder and add it directly to your
 project and update as necessary (the SCSS version can be found in the src
-folder if you prefer).
+folder).
