@@ -425,25 +425,50 @@ function setupImageSwipeHandlers(
 }
 
 /**
- * Youtube player setup
+ * Promise-based Youtube API loader
+ * Ensures the YouTube IFrame API is loaded only once and checks if YT already exists
+ * @returns {Promise} Promise that resolves when the YouTube API is ready
  */
-function youtubeSetup() {
-  const tag = document.createElement('script');
-  tag.id = 'iframe-api';
-  tag.src = 'https://www.youtube.com/iframe_api';
-  const firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
+let youtubeAPIPromise = null;
 
-window.onYouTubeIframeAPIReady = () => {
-  addClickListeners();
-};
+function loadYouTubeAPI() {
+  // Return existing promise if already loading
+  if (youtubeAPIPromise) {
+    return youtubeAPIPromise;
+  }
+
+  // Check if YT object already exists
+  if (window['YT'] && window['YT'].Player) {
+    return Promise.resolve(window['YT']);
+  }
+
+  // Create promise to load the API
+  youtubeAPIPromise = new Promise((resolve, reject) => {
+    // Set up the callback for when API is ready
+    window.onYouTubeIframeAPIReady = () => {
+      resolve(window['YT']);
+    };
+
+    // Load the YouTube IFrame API script
+    const tag = document.createElement('script');
+    tag.id = 'iframe-api';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    tag.onerror = () => {
+      reject(new Error('Failed to load YouTube IFrame API'));
+    };
+
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  });
+
+  return youtubeAPIPromise;
+}
 
 /**
  * Add event listeners for images which has youtube id
+ * Uses the promise-based YouTube API loader
  */
 function addClickListeners() {
-  const YT = window['YT'];
   const onPlayerReady = (event) => {
     event.target.playVideo();
   };
@@ -457,29 +482,34 @@ function addClickListeners() {
       const ytId = t.getAttribute('data-youtubeid');
 
       if (ytId !== '') {
-        window['player'] = new YT.Player('ytplayer', {
-          height: '390',
-          width: '640',
-          videoId: ytId,
-          events: {
-            onReady: onPlayerReady,
-          },
-          playerVars: {
-            rel: 0,
-            autoplay: 1,
-          },
+        // Load YouTube API and create player when ready
+        loadYouTubeAPI().then((YT) => {
+          window['player'] = new YT.Player('ytplayer', {
+            height: '390',
+            width: '640',
+            videoId: ytId,
+            events: {
+              onReady: onPlayerReady,
+            },
+            playerVars: {
+              rel: 0,
+              autoplay: 1,
+            },
+          });
+
+          const playerElement = document.querySelector(
+            '#simple-gallery #ytplayer');
+
+          playerElement.parentNode.classList.add('ytplayer-active');
+          playerElement.parentNode.parentNode.classList.add('ytactive');
+
+          e.currentTarget.classList.remove(
+            'image-active',
+            'slide-in-from-right',
+            'slide-in-from-left');
+        }).catch((error) => {
+          console.error('Failed to load YouTube player:', error);
         });
-
-        const playerElement = document.querySelector(
-          '#simple-gallery #ytplayer');
-
-        playerElement.parentNode.classList.add('ytplayer-active');
-        playerElement.parentNode.parentNode.classList.add('ytactive');
-
-        e.currentTarget.classList.remove(
-          'image-active',
-          'slide-in-from-right',
-          'slide-in-from-left');
       }
     });
   });
@@ -495,7 +525,12 @@ const simpleGallery = ({ selector = '.gallery' } = {}) => {
   if (test.length > 0) {
     initGalleries(selector);
     setup(selector);
-    youtubeSetup();
+    // Load YouTube API and setup click listeners when ready
+    loadYouTubeAPI().then(() => {
+      addClickListeners();
+    }).catch((error) => {
+      console.error('Failed to load YouTube API:', error);
+    });
   };
 };
 
